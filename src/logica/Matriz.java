@@ -14,7 +14,12 @@ public class Matriz {
 		return generarListaDeNElementos(tamanio);
 		
 	}
-	
+	/**
+	 * Genera una matriz cuadrada de tamaño "tamanio*tamanio" que contiene los números del 1 hasta 'tamanio-1',
+	 * seguidos por un espacio vacio representado por el valor 0.
+	 * @param tamanio
+	 * @return
+	 */
 	private static int [][] generarListaDeNElementos(int tamanio){
 		int largo = tamanio*tamanio;
 		List<Integer> lista = new ArrayList<Integer>();
@@ -111,10 +116,50 @@ public class Matriz {
 		return ar;
 	}
 	
+	/**
+	 * Metodo encargado de hacer el movimiento de las piezas.
+	 * Recibe la matriz del juego actual y las posiciones FILA y COLUMNA de la pieza que el usuario quiere mover al espacio vacio
+	 * @param matriz
+	 * @param fila
+	 * @param columna
+	 */
+	public static void  mover(int[][] matriz, int fila, int columna) {
+		int [] espacioVacio = obtenerLugarVacio(matriz);
+		
+		if(esMovimientoValido(matriz,espacioVacio, fila, columna)) {
+			matriz = cambioDePosicion(matriz, espacioVacio, fila, columna);
+		}
+		else {
+			System.out.println("Paso por el error, deberia arrojar exception");
+			throw new IllegalArgumentException("no se puede hacer ese cambio de posicion");
+			
+		}
+		
+		//return matriz; //ANALIZAR BIEN QUE DEVUELVE ESTE METODO, SI UNN BOOLEANO O LA MATRIZ ACTUALIZADA O SI ES VOID
+	}
 	
+	/**
+	 * Metodo encargado de verificar si el movimiento que quiere realizar el usuario es un movimiento valido.
+	 * @param matriz
+	 * @param espacioVacio
+	 * @param fila
+	 * @param columna
+	 * @return true si el movimiento es valido, false de lo contrario.
+	 */
+	private static boolean esMovimientoValido(int[][] matriz, int[] espacioVacio, int fila, int columna) {
+		if((fila == espacioVacio[0] && Math.abs(columna - espacioVacio[1]) == 1) ||
+				(columna == espacioVacio[1] && Math.abs(fila - espacioVacio[0]) == 1)) {
+			return true;
+		}
+		return false;
+	}
 	
-	
-	
+	private static int [][] cambioDePosicion(int[][] matriz, int[] espacioVacio, int fila, int columna){
+		matriz[espacioVacio[0]][espacioVacio[1]] = matriz[fila][columna];// se hace el cambio del espacio vacio
+		matriz[fila][columna] = 0; // se pone en 0 el lugar que previamente ocupaba el numero
+		
+		return matriz;
+	}
 	
 	public static void mostrarArreglo(int ar[]) { //muestra un arreglo
 		System.out.print("[ ");

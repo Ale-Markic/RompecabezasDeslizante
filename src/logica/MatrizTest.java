@@ -1,6 +1,7 @@
 package logica;
 
 import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -58,11 +59,13 @@ public class MatrizTest {
 	@Test
 	public void armadoDeMatrizEsCorrecto() {
 		int [][] matriz = {
-				{1,2,3},
-				{4,5,6},
-				{7,8, 0}
+				{1,2,3,4,5},
+				{6,7,8,9,10},
+				{11,12,13,14,15},
+				{16,17,18,19,20},
+				{21,22,23,24,0}
 		};
-		assertArrayEquals(matriz, Matriz.crearMatriz(3));
+		assertArrayEquals(matriz, Matriz.crearMatriz(5));
 	}
 	
 	@Test
@@ -107,8 +110,34 @@ public class MatrizTest {
 				{7, 5, 2}
 		};
 		int[] esperado = {0,0};
-		assertArrayEquals (esperado, Matriz.obtenerLugarVacio(matriz));
+		assertArrayEquals(esperado, Matriz.obtenerLugarVacio(matriz));
 	}
 	
+	@Test (expected = IllegalArgumentException.class)
+	public void movimientoDevuelveError() { //se pone en verde si se arroja el error.
+		int [][] matriz = {
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 0}
+		};
+		Matriz.mover(matriz, 2,2);
+	}
+	
+	@Test
+	public void movimientoEsCorrecto() {
+		int [][] matrizInicial = {
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 0}
+		};
+		
+		int [][] matrizEsperada = {
+				{1, 2, 3},
+				{4, 5, 0},
+				{7, 8, 6}
+		};
+		
+		//assertArrayEquals(matrizEsperada, Matriz.mover(matrizInicial, 1,2));
+	}
 
 }
