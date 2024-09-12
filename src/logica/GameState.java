@@ -1,18 +1,16 @@
 package logica;
 
+import java.util.ArrayList;
+
 public class GameState {
-	private int [][] _matrizActual;
+	private ArrayList<Integer> _matrizActual;
 	
 	public GameState(int tamanio) {
 		this._matrizActual = Matriz.crearMatriz(tamanio);
 	}
 	
-	public int [][] getMatrizActual(){
+	public ArrayList<Integer> getMatrizActual(){
 		return _matrizActual;
 	}
 	
-	public void moverPieza(int fila, int columna) {
-		Matriz.mover(_matrizActual, fila, columna);
-	}
-
 }

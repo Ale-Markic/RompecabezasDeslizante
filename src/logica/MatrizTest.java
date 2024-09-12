@@ -2,12 +2,14 @@ package logica;
 
 import static org.junit.Assert.*;
 
+
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class MatrizTest {
+	
 	
 	/*
 	@Test
@@ -55,7 +57,7 @@ public class MatrizTest {
 	}
 	*/
 	
-	
+	/*
 	@Test
 	public void armadoDeMatrizEsCorrecto() {
 		int [][] matriz = {
@@ -67,17 +69,20 @@ public class MatrizTest {
 		};
 		assertArrayEquals(matriz, Matriz.crearMatriz(5));
 	}
+	*/
 	
 	@Test
-	public void matrizEstaOrdenada() {
+	public void matrizEstaNoEstaOrdenadaDevuelveFalse() {
 		int [][] matriz = {
-				{1, 2, 3},
-				{4, 5, 6},
-				{7, 8, 0}
+				{1, 2, 6},
+				{7, 0, 3},
+				{4, 5, 8}
 		};
 		
-		assertTrue(Matriz.matrizOrdenada(matriz));
+		assertFalse(Matriz.ganoElJuego(matriz));
 	}
+	
+	
 	
 	@Test
 	public void elJugadorGanoDevuelveTrue() {
@@ -88,6 +93,9 @@ public class MatrizTest {
 		};
 		
 		assertTrue(Matriz.ganoElJuego(matriz));
+		System.out.println();
+		System.out.println();
+		
 	}
 	
 	@Test
@@ -123,6 +131,9 @@ public class MatrizTest {
 		Matriz.mover(matriz, 2,2);
 	}
 	
+	
+	/*
+	
 	@Test
 	public void movimientoEsCorrecto() {
 		int [][] matrizInicial = {
@@ -139,5 +150,28 @@ public class MatrizTest {
 		
 		//assertArrayEquals(matrizEsperada, Matriz.mover(matrizInicial, 1,2));
 	}
+	
+	
+	
+	@Test
+	public void desordenarMatrizEsCorrecto() {
+		int [][] matrizInicial = {
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 0}
+		};
+		
+		int [][] matrizFinal = {
+				{1, 2, 3},
+				{4, 5, 6},
+				{7, 8, 0}
+		};
+		
+		Matriz.desordenarLaMatriz(matrizFinal, 26);
+		System.out.println("matriz final: ");
+		Matriz.mostrarMatriz(matrizFinal);
+	}
+	*/
+	
 
 }

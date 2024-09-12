@@ -21,21 +21,24 @@ public class GridState {
     private int emptyRow, emptyCol; // Posición del casillero vacío en la grilla (fila y columna)
 
     public GridState() {   //contructor
-        this._gameState = new GameState();
+        this._gameState = new GameState(3);
     }
 
     public void setSelectedLevel(JComboBox comboBox, JPanel panel, JLabel puntosLabel, JLabel recordLabel) {
         this.selectedLevel(comboBox, panel, puntosLabel, recordLabel); //met.publico
     }
-
- /*   public void setClickOnStart(JButton btnStart, JPanel panel) {
+    
+    /*
+    public void setClickOnStart(JButton btnStart, JPanel panel) {
         this.clickOnStart(btnStart, panel);  //met.publico
     }  
-
+	
+    
     public void setClickOnRestart(JButton btnRestart, JPanel panel) {
         this.clickOnRestart(btnRestart, panel);  //met.publico
     }
 	*/
+    
     private void selectedLevel(JComboBox comboBox, JPanel panel, JLabel puntosLabel, JLabel recordLabel) {
         comboBox.addActionListener(new ActionListener() { // recib eventos de acción, se selecciona un elemento en el combo box.
             @Override
