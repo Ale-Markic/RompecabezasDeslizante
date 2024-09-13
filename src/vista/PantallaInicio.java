@@ -96,7 +96,7 @@ public class PantallaInicio {
 		
 		btnComenzar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombreUsuario = textoNombre.getText().trim();
+				String nombreUsuario = textoNombre.getText();
 				if(!nombreUsuario.isEmpty()) {
 					InterfazVisual pantallaJuego = new InterfazVisual(nombreUsuario);
 					pantallaJuego.getFrame().setVisible(true);

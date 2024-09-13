@@ -54,7 +54,6 @@ public class InterfazVisual {
 		initialize();    //llama al metodo incializar
 		this.nombreUsuario = nombre;
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -78,20 +77,6 @@ public class InterfazVisual {
 	     puntosLabel.setBounds(340, 11, 100, 23); //se establece pos y tamaño
 	     JLabel recordLabel = new JLabel("Record: ");
 	     recordLabel.setBounds(490, 11, 100, 23);   //se establece pos y tamaño
-	        
-
-	     
-	     /////////////////////
-	     // CREACION DE COMBOBOX
-	     /////////////////////
-	     JComboBox<String> comboBox = new JComboBox<>();  //opciones de como presentar la grilla
-	     String[] levels = { "Selecciona un nivel:", "3x3", "4x4", "5x5" };   //opciones a elegir 
-	     comboBox.setModel(new DefaultComboBoxModel<>(levels));  //muestra los niv x su forma de defaul
-	     comboBox.setBounds(27, 48, 188, 22); //establecemos pos y tamaño
-	     _gridState.setSelectedLevel(comboBox, _panel, puntosLabel, recordLabel);     /*/*agregar logica en gridState*/
-	     
-	     JuegoRompecabeza juegoPanel = new JuegoRompecabeza(3);
-	     
 	     
 	     /////////////////////
 	     // CREACION DE BOTONES
@@ -102,56 +87,75 @@ public class InterfazVisual {
 
 	     JButton btnRestart = new JButton("Reset");
 	     btnRestart.setBounds(126, 81, 89, 23);
-	     btnRestart.addActionListener(new ActionListener() {
-	    	 @Override
-	    	 public void actionPerformed(ActionEvent e) {
-	    		 juegoPanel.resetearMatriz();
-	    		 System.out.println("hola");
-	    	 }
-	    	 
-	     });
+	     
+	     /////////////////////
+	     // CREACION DE COMBOBOX
+	     /////////////////////
+	     JComboBox<String> comboBox = new JComboBox<>();  //opciones de como presentar la grilla
+	     String[] levels = { "Selecciona un nivel:", "3x3", "4x4", "5x5" };   //opciones a elegir 
+	     comboBox.setModel(new DefaultComboBoxModel<>(levels));  //muestra los niv x su forma de defaul
+	     comboBox.setBounds(27, 48, 188, 22); //establecemos pos y tamaño
+	     _gridState.setSelectedLevel(comboBox, _panel, puntosLabel, recordLabel);     /*/*agregar logica en gridState*/
+	     
+	     
+	     //Creacion del JPanel con el juego internamente
+	     JuegoRompecabeza juegoPanel = new JuegoRompecabeza(4);
+	     
+	     
 	     
 	     
 	//     _gridState.setClickOnStart(btnStart, _panel);  /*agregar logica en gridState*/
 	 //    _gridState.setClickOnRestart(btnRestart, _panel); //Asocia los botones  a su funcion mediante el evento en gridState
 	     
+	     configuracionDelJuego(juegoPanel);
 	     
+	     // Reiniciar el juego
 	     
-         
-		 _panel.add(juegoPanel,BorderLayout.PAGE_START); 
-	     juegoPanel.setearTamanioVentana(_panel.getSize());
+	     btnRestart.addActionListener(new ActionListener() {
+	    	 @Override
+	     	 public void actionPerformed(ActionEvent e) {
+	    		 juegoPanel.reiniciarJuego();
+	    		 juegoPanel.setearTamanioVentana(_panel.getSize());
+	    	 }
+	    	 
+	     });
+	     
+	     //Jugador cambia el tamaño de la matriz
+	     btnStart.addActionListener(new ActionListener() {
+	    	 @Override
+	    	 public void actionPerformed(ActionEvent e) {
+	    		 String tamanioSeleccionado = comboBox.getSelectedItem().toString();
+	    		 cambiarEstado(juegoPanel,tamanioSeleccionado);
+	    		 
+	    	 }
+	     });
 	     
 	     
 	     
 	     creacionDeReglas();
 	     agregarComponentesAlFrame(comboBox, recordLabel, btnStart, btnRestart);
-
-
-	     
-/*       // Configurar un KeyListener para mover las piezas con las teclas
-       _frame.addKeyListener(new KeyAdapter() {
-           @Override
-           public void keyPressed(KeyEvent e) {
-               int key = e.getKeyCode();
-               switch (key) {
-                   case KeyEvent.VK_UP:
-                       _gridState.moveUp();
-                       break;
-                   case KeyEvent.VK_DOWN:
-                       _gridState.moveDown();
-                       break;
-                   case KeyEvent.VK_LEFT:
-                       _gridState.moveLeft();
-                       break;
-                   case KeyEvent.VK_RIGHT:
-                       _gridState.moveRight();
-                       break;
-               }
-               _panel.repaint(); // Redibujar la grilla después de mover
-           }
-       });
-       */
 }
+	
+	
+	private void cambiarEstado(JuegoRompecabeza juegoPanel, String tamanioSeleccionado) {
+		juegoPanel = new JuegoRompecabeza(JuegoRompecabeza.obtenerTamanioSeleccionado(tamanioSeleccionado));
+		 _frame.add(juegoPanel);
+		 configuracionDelJuego(juegoPanel);
+	}
+	
+	private void configuracionDelJuego(JuegoRompecabeza juegoPanel) {
+	     //Asociar el juego a un Jpanel en el que se indique
+	     juegoPanel.setearTamanioVentana(_panel.getSize());
+	     _panel.add(juegoPanel,BorderLayout.PAGE_START);
+	     _panel.setBorder(null);
+	     _panel.revalidate();
+		 _panel.repaint();
+	     
+	     // Mostrar la cantidad de movimientos 
+	     
+	     juegoPanel.setPuntosLabel(puntosLabel);
+	}
+	
 	
 	private void creacionDeReglas() {
 

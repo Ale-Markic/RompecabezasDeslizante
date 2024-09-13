@@ -1,13 +1,15 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.Dimension;
-
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -17,6 +19,8 @@ public class JuegoRompecabeza extends JPanel {
 	private JButton[] buttons;
     private int indice;
     private int valorCuadricula;
+    private int CantidadMovimientos;
+    private JLabel puntosLabel; // Para guardar la referencia al JLabel
 
     public JuegoRompecabeza(int valorCuadricula) {
         this.valorCuadricula = valorCuadricula;
@@ -72,9 +76,15 @@ public class JuegoRompecabeza extends JPanel {
 
             if (numero == 0) {  // Si el número es 0, crea un botón vacío
                 buttons[i] = new JButton("");
+                buttons[i].setBackground(new Color(25, 55, 97));
+                buttons[i].setForeground(new Color(254, 220, 253).brighter().brighter());
+                buttons[i].setFont(new Font("Arial",Font.BOLD,20));
                 indice = i;
             } else {  // En caso contrario, crea un botón con el número correspondiente
                 buttons[i] = new JButton(String.valueOf(numero));
+                buttons[i].setBackground(new Color(25, 55, 97));
+                buttons[i].setForeground(new Color(254, 220, 253).brighter().brighter());
+                buttons[i].setFont(new Font("Arial",Font.BOLD,20));
             }
 
             buttons[i].addActionListener(new Acciones());  // Añade el listener de acción
@@ -82,18 +92,42 @@ public class JuegoRompecabeza extends JPanel {
         }
     }
     
-    public void resetearMatriz() {
-    	//int [][] matrizBidimensional = convertirBotonesAMatriz(getBotones());
-    	//ArrayList<Integer> arregloMatriz = Matriz.matrizBidimensionalAArrayList(matrizBidimensional);
-    	
-    	
+    // Método para establecer el JLabel opcionalmente
+    public void setPuntosLabel(JLabel puntosLabel) {
+        this.puntosLabel = puntosLabel;
+    }
+    
+    private void contarMovimiento() {
+        this.CantidadMovimientos++;
     }
 
+    private int getMovimientosRealizados(){
+        return this.CantidadMovimientos;
+    }
+
+    public void reiniciarJuego() {
+        this.removeAll(); // Elimina todos los componentes actuales del panel (los botones)
+        this.CantidadMovimientos = 0; // Reinicia el contador de movimientos
+        
+        if (puntosLabel != null) {
+            puntosLabel.setText("Movimientos: 0"); // Reinicia la etiqueta de movimientos si existe
+        }
+        
+        iniciarJuego(); // Vuelve a inicializar el juego
+        revalidate(); // Actualiza el layout del panel
+        repaint();    // Redibuja el panel
+    }
     
     
     private JButton[] getBotones() {
 		return buttons;
 	}
+    
+    public static int obtenerTamanioSeleccionado(String tamanio) {
+    	String numeroString = tamanio.substring(2);
+    	int nuevoTamanioMatriz = Integer.parseInt(numeroString);
+    	return nuevoTamanioMatriz;
+    }
 
 
 
@@ -115,6 +149,10 @@ public class JuegoRompecabeza extends JPanel {
                 buttons[indice].setText(clickButton.getText());
                 clickButton.setText("");
                 indice = indiceClick;
+                
+                contarMovimiento();
+                puntosLabel.setText("Movimientos: " + getMovimientosRealizados());
+                
                 checkEstadoJuego();
             }
         }
@@ -157,6 +195,6 @@ public class JuegoRompecabeza extends JPanel {
     	
     	return matriz;
     }
-	
+    
 
 }
