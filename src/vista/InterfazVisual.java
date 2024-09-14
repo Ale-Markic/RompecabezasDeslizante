@@ -29,6 +29,7 @@ public class InterfazVisual {
 	 private GridState _gridState;  //gestiona el estado y la lógica del juego.
 	 private JLabel puntosLabel;  //para tener en cuenta los numeros 
 	 private String nombreUsuario;
+	 private JuegoRompecabeza juegoPanel = null;
 
 	/**
 	 * Launch the application.
@@ -95,12 +96,17 @@ public class InterfazVisual {
 	     String[] levels = { "Selecciona un nivel:", "3x3", "4x4", "5x5" };   //opciones a elegir 
 	     comboBox.setModel(new DefaultComboBoxModel<>(levels));  //muestra los niv x su forma de defaul
 	     comboBox.setBounds(27, 48, 188, 22); //establecemos pos y tamaño
-	     _gridState.setSelectedLevel(comboBox, _panel, puntosLabel, recordLabel);     /*/*agregar logica en gridState*/
+	     
+	  // Muestra un panel vacío inicialmente (juegoPanel es null)
+		    _panel.setLayout(new BorderLayout());
+		    _panel.add(new JLabel("Seleccione un nivel para empezar"), BorderLayout.CENTER); // Texto para indicar que no hay grilla aún
+		    _panel.revalidate();
+		    _panel.repaint();
 	     
 	     
 	     //Creacion del JPanel con el juego internamente
-	     JuegoRompecabeza juegoPanel = new JuegoRompecabeza(4);
-	     
+	     //String tamanioSeleccionado = comboBox.getSelectedItem().toString();
+	     //JuegoRompecabeza juegoPanel = new JuegoRompecabeza(JuegoRompecabeza.obtenerTamanioSeleccionado(tamanioSeleccionado));
 	     
 	     
 	     
@@ -114,8 +120,10 @@ public class InterfazVisual {
 	     btnRestart.addActionListener(new ActionListener() {
 	    	 @Override
 	     	 public void actionPerformed(ActionEvent e) {
-	    		 juegoPanel.reiniciarJuego();
-	    		 juegoPanel.setearTamanioVentana(_panel.getSize());
+	    		 if(juegoPanel != null) {
+	    			 juegoPanel.reiniciarJuego();
+		    		 juegoPanel.setearTamanioVentana(_panel.getSize());
+	    		 }
 	    	 }
 	    	 
 	     });
@@ -125,35 +133,44 @@ public class InterfazVisual {
 	    	 @Override
 	    	 public void actionPerformed(ActionEvent e) {
 	    		 String tamanioSeleccionado = comboBox.getSelectedItem().toString();
-	    		 cambiarEstado(juegoPanel,tamanioSeleccionado);
+	    		 juegoPanel = cambiarEstado(juegoPanel,tamanioSeleccionado);
+	    		 
 	    		 
 	    	 }
 	     });
-	     
-	     
 	     
 	     creacionDeReglas();
 	     agregarComponentesAlFrame(comboBox, recordLabel, btnStart, btnRestart);
 }
 	
 	
-	private void cambiarEstado(JuegoRompecabeza juegoPanel, String tamanioSeleccionado) {
-		juegoPanel = new JuegoRompecabeza(JuegoRompecabeza.obtenerTamanioSeleccionado(tamanioSeleccionado));
-		 _frame.add(juegoPanel);
-		 configuracionDelJuego(juegoPanel);
+	private JuegoRompecabeza cambiarEstado(JuegoRompecabeza juegoPanel, String tamanioSeleccionado) {
+		// Reemplazar el panel vacío o anterior juegoPanel por el nuevo juegoPanel
+        _panel.removeAll();  // Remueve el contenido anterior (texto o juegoPanel anterior)
+        
+        juegoPanel = new JuegoRompecabeza(JuegoRompecabeza.obtenerTamanioSeleccionado(tamanioSeleccionado));  // Crea el panel con la grilla
+        _panel.add(juegoPanel, BorderLayout.CENTER);  // Agrega el nuevo panel con grilla
+        
+        juegoPanel.setearTamanioVentana(_panel.getSize());  // Ajusta el tamaño de los botones
+        juegoPanel.setPuntosLabel(puntosLabel);  // Aquí se asigna el puntosLabel después de inicializar juegoPanel
+        _panel.revalidate();  // Revalida el panel para actualizar el diseño
+        _panel.repaint();     // Redibuja el panel
+        
+        return juegoPanel;
+
 	}
 	
 	private void configuracionDelJuego(JuegoRompecabeza juegoPanel) {
 	     //Asociar el juego a un Jpanel en el que se indique
-	     juegoPanel.setearTamanioVentana(_panel.getSize());
-	     _panel.add(juegoPanel,BorderLayout.PAGE_START);
+	     //juegoPanel.setearTamanioVentana(_panel.getSize());
+	     //_panel.add(juegoPanel,BorderLayout.PAGE_START);
 	     _panel.setBorder(null);
 	     _panel.revalidate();
 		 _panel.repaint();
 	     
 	     // Mostrar la cantidad de movimientos 
 	     
-	     juegoPanel.setPuntosLabel(puntosLabel);
+	     //juegoPanel.setPuntosLabel(puntosLabel);
 	}
 	
 	

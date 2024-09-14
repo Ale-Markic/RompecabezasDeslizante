@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -43,10 +44,10 @@ public class JuegoRompecabeza extends JPanel {
     }
     
     
-     private void iniciarJuego() {    	 
+     public void iniciarJuego() {    	 
     	ArrayList<Integer> numeroMatriz = Matriz.crearMatriz(valorCuadricula);
     	numeroMatriz = Matriz.desordenarLaMatriz(numeroMatriz, 30);
-    	 
+    	
     	int totalCuadricula = calcularValorDeCuadricula(valorCuadricula);
     	buttons = new JButton[totalCuadricula];  // Ajusta el tamaño del array de botones
     	
@@ -97,7 +98,12 @@ public class JuegoRompecabeza extends JPanel {
         this.puntosLabel = puntosLabel;
     }
     
-    private void contarMovimiento() {
+    @Override
+	public String toString() {
+		return "JuegoRompecabeza [buttons=" + Arrays.toString(buttons) + "]";
+	}
+
+	private void contarMovimiento() {
         this.CantidadMovimientos++;
     }
 
@@ -123,10 +129,24 @@ public class JuegoRompecabeza extends JPanel {
 		return buttons;
 	}
     
+    public void cambiarTamanioMatriz() {
+    	this.removeAll();
+    	this.CantidadMovimientos = 0; // Reinicia el contador de movimientos
+        
+        if (puntosLabel != null) {
+            puntosLabel.setText("Movimientos: 0"); // Reinicia la etiqueta de movimientos si existe
+        }
+    }
+    
     public static int obtenerTamanioSeleccionado(String tamanio) {
-    	String numeroString = tamanio.substring(2);
-    	int nuevoTamanioMatriz = Integer.parseInt(numeroString);
-    	return nuevoTamanioMatriz;
+    	//Verifico que no seleccione el primer elemento del comobox
+    	if(!(tamanio.length()> 4)) {
+    		String numeroString = tamanio.substring(2);
+        	int nuevoTamanioMatriz = Integer.parseInt(numeroString);
+        	return nuevoTamanioMatriz;
+    	}    	
+    	return 3;
+
     }
 
 
@@ -194,6 +214,13 @@ public class JuegoRompecabeza extends JPanel {
     	int [][] matriz = Matriz.listaAArregloBidimensional(arreglo);
     	
     	return matriz;
+    }
+    
+    public void setValorCuadricula(int valor) {
+    	this.valorCuadricula = valor;
+    }
+    public int getValorCuadricula() {
+    	return this.valorCuadricula;
     }
     
 
