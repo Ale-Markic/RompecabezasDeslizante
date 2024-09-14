@@ -125,10 +125,6 @@ public class JuegoRompecabeza extends JPanel {
     }
     
     
-    private JButton[] getBotones() {
-		return buttons;
-	}
-    
     public void cambiarTamanioMatriz() {
     	this.removeAll();
     	this.CantidadMovimientos = 0; // Reinicia el contador de movimientos
@@ -190,7 +186,6 @@ public class JuegoRompecabeza extends JPanel {
     }
 
     private void checkEstadoJuego() {
-        //boolean esGanador = true;
         int [][] matriz = convertirBotonesAMatriz(buttons);
         if(Matriz.ganoElJuego(matriz)) {
         	JOptionPane.showMessageDialog(this, "¡Has ganado!");

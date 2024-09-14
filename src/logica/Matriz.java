@@ -34,23 +34,6 @@ public class Matriz {
 		return lista;
 	}
 	
-	/*
-	private static int [][] generacionDeMatriz(int tamanio, List <Integer> lista){
-		int [][] matriz = new int [tamanio][tamanio];
-		int index = 0;
-		
-		for(int i = 0; i<tamanio; i++) {
-			for(int j = 0; j<tamanio; j++) {
-				matriz[i][j] = lista.get(index++);
-			}
-		}
-		
-		return matriz;
-	}
-	*/
-	
-
-	
 	/**
 	 * Devuelve un arreglo de enteros donde se encuentra la posicion del lugar vacio en la matriz
 	 * se lee de la siguiente manera int [FILA][COLUMNA]
@@ -90,7 +73,7 @@ public class Matriz {
 		}
 		
 		
-		return matriz; //ANALIZAR BIEN QUE DEVUELVE ESTE METODO, SI UNN BOOLEANO O LA MATRIZ ACTUALIZADA O SI ES VOID
+		return matriz; 
 	}
 	/**
 	 * Metodo encargado de desordenar la matriz para que le aparezca desordenada al usuario.
@@ -112,10 +95,6 @@ public class Matriz {
 		matrizLista = matrizBidimensionalAArrayList(matrizBidimensional);
 		return matrizLista;
 		
-	}
-	
-	private static int obtenerLugarVacio(ArrayList<Integer> matriz) {
-		return matriz.indexOf(0);
 	}
 	
 	private static int [][] obtenerPosiblesDirecciones(){
@@ -169,7 +148,6 @@ public class Matriz {
 	 * @param matrizBidimensional
 	 * @return {@link ArrayList} 
 	 */
-	
 	public static ArrayList<Integer> matrizBidimensionalAArrayList(int [][] matrizBidimensional){
 		int tamano = matrizBidimensional.length;
 		ArrayList<Integer> nuevaMatriz = new ArrayList<Integer>();
@@ -197,7 +175,11 @@ public class Matriz {
 		return ar;
 	}
 	
-	
+	/**
+	 * Metodo encargado de verificar si el usuario gano el juego, se debe pasar un arreglo bidimensional
+	 * @param matriz
+	 * @return true si la matriz pasada por parametro está ordenada de manera ascendente y false de lo contrario.
+	 */
 	public static boolean ganoElJuego(int[][] matriz) {
 		return matrizOrdenada(matriz);
 	}
@@ -250,13 +232,6 @@ public class Matriz {
 	}
 	
 	private static int [][] cambioDePosicionDelCero(int[][] matriz, int[] espacioVacio, int fila, int columna){
-		/*
-		System.out.println("matriz actual: ");
-		Matriz.mostrarMatriz(matriz);
-		Matriz.mostrarArreglo(espacioVacio);
-		System.out.println("fila nueva: " + fila + "  Columna"  + columna);
-		*/
-		
 		matriz[espacioVacio[0]][espacioVacio[1]] = matriz[fila][columna];// se hace el cambio del espacio vacio
 		matriz[fila][columna] = 0; // se pone en 0 el lugar que previamente ocupaba el numero
 		
@@ -266,8 +241,7 @@ public class Matriz {
 	private static boolean esIgualACero(int posicion) {
 		return posicion == 0 ? true : false;
 	}
-	
-	
+		
 	private static int [] elegirDireccionAleatoria(int [][] movimientosPosibles) {
 		Random random = new Random();
 		
@@ -285,20 +259,4 @@ public class Matriz {
 		}
 		return false;
 	}
-	
-	public static void mostrarArreglo(int ar[]) { //muestra un arreglo
-		System.out.print("[ ");
-		for (int i = 0; i < ar.length -1; i++ ) {
-			System.out.print(ar[i] + " , ");
-		}
-		System.out.println(ar [ar.length - 1] + " ]");
-	}
-	
-	public static void mostrarMatriz(int mat[][]) { 
-		
-		for(int i = 0; i < mat.length; i++) {
-			mostrarArreglo(mat[i]);
-		}
-	}
-
 }

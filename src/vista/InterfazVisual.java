@@ -102,17 +102,7 @@ public class InterfazVisual {
 		    _panel.add(new JLabel("Seleccione un nivel para empezar"), BorderLayout.CENTER); // Texto para indicar que no hay grilla aún
 		    _panel.revalidate();
 		    _panel.repaint();
-	     
-	     
-	     //Creacion del JPanel con el juego internamente
-	     //String tamanioSeleccionado = comboBox.getSelectedItem().toString();
-	     //JuegoRompecabeza juegoPanel = new JuegoRompecabeza(JuegoRompecabeza.obtenerTamanioSeleccionado(tamanioSeleccionado));
-	     
-	     
-	     
-	//     _gridState.setClickOnStart(btnStart, _panel);  /*agregar logica en gridState*/
-	 //    _gridState.setClickOnRestart(btnRestart, _panel); //Asocia los botones  a su funcion mediante el evento en gridState
-	     
+		    
 	     configuracionDelJuego(juegoPanel);
 	     
 	     // Reiniciar el juego
@@ -121,8 +111,7 @@ public class InterfazVisual {
 	    	 @Override
 	     	 public void actionPerformed(ActionEvent e) {
 	    		 if(juegoPanel != null) {
-	    			 juegoPanel.reiniciarJuego();
-		    		 juegoPanel.setearTamanioVentana(_panel.getSize());
+	    			 usuarioPresionoElBotonRestart();
 	    		 }
 	    	 }
 	    	 
@@ -161,16 +150,10 @@ public class InterfazVisual {
 	}
 	
 	private void configuracionDelJuego(JuegoRompecabeza juegoPanel) {
-	     //Asociar el juego a un Jpanel en el que se indique
-	     //juegoPanel.setearTamanioVentana(_panel.getSize());
-	     //_panel.add(juegoPanel,BorderLayout.PAGE_START);
 	     _panel.setBorder(null);
 	     _panel.revalidate();
 		 _panel.repaint();
 	     
-	     // Mostrar la cantidad de movimientos 
-	     
-	     //juegoPanel.setPuntosLabel(puntosLabel);
 	}
 	
 	
@@ -216,6 +199,11 @@ public class InterfazVisual {
 	private void addComponentToFrame(JComponent component) {
         _frame.getContentPane().add(component);
     }
+	
+	private void usuarioPresionoElBotonRestart() {
+		juegoPanel.reiniciarJuego();
+		juegoPanel.setearTamanioVentana(_panel.getSize());
+	}
 	
 	  /**
      * Método para obtener el frame de la clase Juego.
