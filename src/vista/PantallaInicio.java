@@ -78,7 +78,7 @@ public class PantallaInicio {
 		JLabel lblNombre = new JLabel ("Ingrese su nombre: ");
 		configuracionlblNombre(lblNombre, panelConFondo);
 
-		
+	
 		JTextField textoNombre = new JTextField();
 		configuracionTextoNombre(textoNombre, panelConFondo);
 		
@@ -133,7 +133,6 @@ public class PantallaInicio {
 	}
 	private void configuracionTextoNombre(JTextField textoNombre, JPanel panelConFondo) {
 		textoNombre.setBounds(227,270,150,30);
-		//textoNombre.setColumns(10);
 		panelConFondo.add(textoNombre);
 	}
 	private void configuracionlblNombre(JLabel lblNombre, JPanel panelConFondo) {

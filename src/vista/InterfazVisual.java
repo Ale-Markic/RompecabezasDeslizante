@@ -52,9 +52,9 @@ public class InterfazVisual {
 	/**
 	 * Create the application.
 	 */
-	public InterfazVisual(String nombre) {   //contructor
-		initialize();    //llama al metodo incializar
+	public InterfazVisual(String nombre) {   
 		this.nombreUsuario = nombre;
+		initialize();    
 	}
 	/**
 	 * Initialize the contents of the frame.
@@ -79,6 +79,9 @@ public class InterfazVisual {
 	     puntosLabel.setBounds(340, 11, 100, 23); //se establece pos y tamaño
 	     JLabel recordLabel = new JLabel("Record: ");
 	     recordLabel.setBounds(490, 11, 100, 23);   //se establece pos y tamaño
+	     
+	     JLabel nombreLabel = new JLabel("Bienvedio/a " + nombreUsuario + "!");
+	     configurarNombreLabel(nombreLabel);
 	     
 	     /////////////////////
 	     // CREACION DE BOTONES
@@ -130,7 +133,7 @@ public class InterfazVisual {
 	     });
 	     
 	     creacionDeReglas();
-	     agregarComponentesAlFrame(comboBox, recordLabel, btnStart, btnRestart);
+	     agregarComponentesAlFrame(comboBox, recordLabel, btnStart, btnRestart, nombreLabel);
 }
 	
 	
@@ -180,11 +183,12 @@ public class InterfazVisual {
 		
 	}
 	
-	private void agregarComponentesAlFrame(JComboBox<String> comboBox, JLabel recordLabel,JButton btnStart, JButton btnRestart ) {
+	private void agregarComponentesAlFrame(JComboBox<String> comboBox, JLabel recordLabel,JButton btnStart, JButton btnRestart, JLabel nombreLabel ) {
 	    addComponentToFrame(recordLabel);
 	    addComponentToFrame(comboBox);
 	    addComponentToFrame(btnStart);
 	    addComponentToFrame(btnRestart);
+	    addComponentToFrame(nombreLabel);
 		
 	}
 	
@@ -205,6 +209,10 @@ public class InterfazVisual {
 	private void usuarioPresionoElBotonRestart() {
 		juegoPanel.reiniciarJuego();
 		juegoPanel.setearTamanioVentana(_panel.getSize());
+	}
+	
+	private void configurarNombreLabel(JLabel nombreLabel) {
+		nombreLabel.setBounds(50, 0, 150, 50);
 	}
 	
 	  /**

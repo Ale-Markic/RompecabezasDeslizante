@@ -134,7 +134,6 @@ public class JuegoRompecabeza extends JPanel {
 		return this.valorTemporalRecord;
 	}
 
-
 	private void verificarNuevoRecord(int valor ) {
 
 		if (puntosRecords == 0) {
@@ -168,7 +167,6 @@ public class JuegoRompecabeza extends JPanel {
 		revalidate(); // Actualiza el layout del panel
 		repaint();    // Redibuja el panel
 	}
-
 
 	public void cambiarTamanioMatriz() {
 		this.removeAll();
