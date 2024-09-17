@@ -10,13 +10,11 @@ import javax.swing.JButton;
 class Acciones implements ActionListener {
 
 	private JButton[] buttons;
-	private int indice;
 	private JuegoRompecabeza juego; // Para tener una referencia a la clase principal del juego
 
 
-	public Acciones(JButton[] buttons, int indice, JuegoRompecabeza juego) {
+	public Acciones(JButton[] buttons, JuegoRompecabeza juego) {
 		this.buttons = buttons;
-		this.indice = indice;
 		this.juego = juego;
 	}
 

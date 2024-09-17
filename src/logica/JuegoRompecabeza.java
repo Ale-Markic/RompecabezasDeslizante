@@ -92,7 +92,7 @@ public class JuegoRompecabeza extends JPanel {
 				buttons[i].setFont(new Font("Arial",Font.BOLD,20));
 			}
 
-			buttons[i].addActionListener(new Acciones(buttons, indice, this));  
+			buttons[i].addActionListener(new Acciones(buttons, this));  
 			this.add(buttons[i]);  // Añade el botón al panel
 		}
 	}
@@ -115,7 +115,6 @@ public class JuegoRompecabeza extends JPanel {
 	private int getMovimientosRealizados(){
 		return this.CantidadMovimientos;
 	}
-
 
 	/**
 	 * metodo para establecer el JLabel de records
