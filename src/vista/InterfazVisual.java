@@ -26,7 +26,6 @@ public class InterfazVisual {
 
 	 private JFrame _frame;  //rectangulo base
 	 private JPanel _panel;  //rectagulo dentro
-	 private GridState _gridState;  //gestiona el estado y la lógica del juego.
 	 private JLabel puntosLabel;  //para tener en cuenta los numeros 
 	 private String nombreUsuario;
 	 private JuegoRompecabeza juegoPanel = null;
@@ -51,7 +50,6 @@ public class InterfazVisual {
 	 * Create the application.
 	 */
 	public InterfazVisual(String nombre) {   //contructor
-		this._gridState = new GridState();   //inicializo el objeto
 		initialize();    //llama al metodo incializar
 		this.nombreUsuario = nombre;
 	}
