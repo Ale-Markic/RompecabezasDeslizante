@@ -19,6 +19,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import logica.JuegoRompecabeza;
+
 import javax.swing.JOptionPane;
 //import Interfaces.GridState;
 

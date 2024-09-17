@@ -1,4 +1,4 @@
-package vista;
+package logica;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,8 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import logica.Matriz;
 
 public class JuegoRompecabeza extends JPanel {
 	private JButton[] buttons;
