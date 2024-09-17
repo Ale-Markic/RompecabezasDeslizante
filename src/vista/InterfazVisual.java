@@ -122,7 +122,7 @@ public class InterfazVisual {
 	    	 @Override
 	    	 public void actionPerformed(ActionEvent e) {
 	    		 String tamanioSeleccionado = comboBox.getSelectedItem().toString();
-	    		 juegoPanel = cambiarEstado(juegoPanel,tamanioSeleccionado);
+	    		 juegoPanel = cambiarEstado(juegoPanel,tamanioSeleccionado, recordLabel);
 	    		 
 	    		 
 	    	 }
@@ -133,7 +133,7 @@ public class InterfazVisual {
 }
 	
 	
-	private JuegoRompecabeza cambiarEstado(JuegoRompecabeza juegoPanel, String tamanioSeleccionado) {
+	private JuegoRompecabeza cambiarEstado(JuegoRompecabeza juegoPanel, String tamanioSeleccionado, JLabel recordLabel) {
 		// Reemplazar el panel vacío o anterior juegoPanel por el nuevo juegoPanel
         _panel.removeAll();  // Remueve el contenido anterior (texto o juegoPanel anterior)
         
@@ -142,6 +142,7 @@ public class InterfazVisual {
         
         juegoPanel.setearTamanioVentana(_panel.getSize());  // Ajusta el tamaño de los botones
         juegoPanel.setPuntosLabel(puntosLabel);  // Aquí se asigna el puntosLabel después de inicializar juegoPanel
+        juegoPanel.setRecords(recordLabel);
         _panel.revalidate();  // Revalida el panel para actualizar el diseño
         _panel.repaint();     // Redibuja el panel
         

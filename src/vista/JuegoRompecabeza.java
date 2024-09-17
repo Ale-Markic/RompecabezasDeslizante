@@ -21,10 +21,16 @@ public class JuegoRompecabeza extends JPanel {
     private int indice;
     private int valorCuadricula;
     private int CantidadMovimientos;
+    private JLabel records;
+    private int puntosRecords;
+    private int valorTemporalRecord;
     private JLabel puntosLabel; // Para guardar la referencia al JLabel
 
     public JuegoRompecabeza(int valorCuadricula) {
         this.valorCuadricula = valorCuadricula;
+        this.CantidadMovimientos = 0;
+        this.puntosRecords = 0;
+        this.valorTemporalRecord = 0;
         this.setLayout(new GridLayout(valorCuadricula, valorCuadricula));  // Configura el diseño de la cuadrícula
         
         
@@ -107,13 +113,61 @@ public class JuegoRompecabeza extends JPanel {
         this.CantidadMovimientos++;
     }
 
+    private int movimientosRealizados() {
+    	return this.CantidadMovimientos;
+    }
+
     private int getMovimientosRealizados(){
         return this.CantidadMovimientos;
     }
+    
+    
+    /**
+     * metodo para establecer el JLabel de records
+     * @param _records
+     */
+    public void setRecords(JLabel _records) {
+    		this.records = _records;
+    	
+    }
+    
+    private void RecordsMovimientosRealizados() {
+    	this.valorTemporalRecord++;
+    	
+    }
+    
+    private int obtenerValorRecord() {
+    	return this.valorTemporalRecord;
+    }
+    
+    
+    private void verificarNuevoRecord(int valor ) {
+    	/*
+    	if(valor ==0) {
+    		this.puntosRecords=this.puntosRecords;
+    	}
+    	*/
+    	
+    	if (puntosRecords == 0) {
+    		this.puntosRecords=valor;
+    		this.records.setText("Record: "+this.puntosRecords);
+    	 	}
+    	
+    	if(puntosRecords > valor) {
+    		this.puntosRecords= valor;
+    		this.records.setText("Record: "+this.puntosRecords);
+    	} else {
+    		this.records.setText("Record: "+this.puntosRecords);
+    	}
+    	    	
+    	
+    }
+    
 
     public void reiniciarJuego() {
         this.removeAll(); // Elimina todos los componentes actuales del panel (los botones)
         this.CantidadMovimientos = 0; // Reinicia el contador de movimientos
+        this.valorTemporalRecord = 0;
         
         if (puntosLabel != null) {
             puntosLabel.setText("Movimientos: 0"); // Reinicia la etiqueta de movimientos si existe
@@ -167,6 +221,7 @@ public class JuegoRompecabeza extends JPanel {
                 indice = indiceClick;
                 
                 contarMovimiento();
+                RecordsMovimientosRealizados();
                 puntosLabel.setText("Movimientos: " + getMovimientosRealizados());
                 
                 checkEstadoJuego();
@@ -188,6 +243,7 @@ public class JuegoRompecabeza extends JPanel {
     private void checkEstadoJuego() {
         int [][] matriz = convertirBotonesAMatriz(buttons);
         if(Matriz.ganoElJuego(matriz)) {
+        	verificarNuevoRecord(obtenerValorRecord());
         	JOptionPane.showMessageDialog(this, "¡Has ganado!");
         }
         
