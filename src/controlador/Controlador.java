@@ -60,15 +60,11 @@ public class Controlador {
 		@Override
 		public void actionPerformed(ActionEvent evento) {
 			try {
-
-				logica.moverPieza(logica.obtenerPosicionXdelCero()+1, logica.obtenerPosicionYdelCero());
-				vista.nuevaMatriz(logica.getMatriz());
-				vista.ActualizarPanel();
-				vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+				moverArriba();
+				
 				if(logica.estaResuelto()) {
-					logica.RegistrarRecords();
-					vista.ActualizarRecord("Record:"+logica.MostrarRecord());
-					vista.Felicitaciones();
+					
+					verificarEstadoDeJuego();
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -80,15 +76,9 @@ public class Controlador {
 		@Override
 		public void actionPerformed(ActionEvent evento) {
 			try {
-
-				logica.moverPieza(logica.obtenerPosicionXdelCero()-1, logica.obtenerPosicionYdelCero());
-				vista.nuevaMatriz(logica.getMatriz());
-				vista.ActualizarPanel();
-				vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+				moverAbajo();
 				if(logica.estaResuelto()) {
-					logica.RegistrarRecords();
-					vista.ActualizarRecord("Record:"+logica.MostrarRecord());
-					vista.Felicitaciones();
+					verificarEstadoDeJuego();
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -100,15 +90,9 @@ public class Controlador {
 		@Override
 		public void actionPerformed(ActionEvent evento) {
 			try {
-
-				logica.moverPieza(logica.obtenerPosicionXdelCero(), logica.obtenerPosicionYdelCero()-1);
-				vista.nuevaMatriz(logica.getMatriz());
-				vista.ActualizarPanel();
-				vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+				moverDerecha();
 				if(logica.estaResuelto()) {
-					logica.RegistrarRecords();
-					vista.ActualizarRecord("Record:"+logica.MostrarRecord());
-					vista.Felicitaciones();
+					verificarEstadoDeJuego();
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -120,15 +104,10 @@ public class Controlador {
 		@Override
 		public void actionPerformed(ActionEvent evento) {
 			try {
-
-				logica.moverPieza(logica.obtenerPosicionXdelCero(), logica.obtenerPosicionYdelCero()+1);
-				vista.nuevaMatriz(logica.getMatriz());		
-				vista.ActualizarPanel();
-				vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+				
+				moverIzquierda();
 				if(logica.estaResuelto()) {
-					logica.RegistrarRecords();
-					vista.ActualizarRecord("Record:"+logica.MostrarRecord());
-					vista.Felicitaciones();
+					verificarEstadoDeJuego();
 				}
 
 			} catch (Exception e) {
@@ -177,13 +156,7 @@ public class Controlador {
 			try {
 				if(!datos.equals("Seleccione un nivel")) 
 				{
-					logica.SetearTamaño(logica.ObtenerNumeroCuadricula());
-					vista.limpiarCuadricula();
-					vista.CrearCuadricula(logica.getMatriz());
-					vista.ActualizarCantidadMovimiento("Movimientos:  ");
-					logica.GuardarRecordActual(vista.MostrarRecordActual());
-					vista.ActualizarPanel();
-
+					cargarNivelSeleccionado();
 				}	
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -197,47 +170,28 @@ public class Controlador {
 			try {
 
 				if(evento.getKeyChar()=='d') {
-					logica.moverPieza(logica.obtenerPosicionXdelCero(), logica.obtenerPosicionYdelCero()-1);
-					vista.nuevaMatriz(logica.getMatriz());		
-					vista.ActualizarPanel();
-					vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+					moverDerecha();
 					if(logica.estaResuelto()) {
-						logica.RegistrarRecords();
-						vista.ActualizarRecord("Record:"+logica.MostrarRecord());
-						vista.Felicitaciones();
+						verificarEstadoDeJuego();
 					}
 				}
 				if(evento.getKeyChar()=='a') {
-					logica.moverPieza(logica.obtenerPosicionXdelCero(), logica.obtenerPosicionYdelCero()+1);
-					vista.nuevaMatriz(logica.getMatriz());		
-					vista.ActualizarPanel();
-					vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+					moverIzquierda();
+
 					if(logica.estaResuelto()) {
-						logica.RegistrarRecords();
-						vista.ActualizarRecord("Record:"+logica.MostrarRecord());
-						vista.Felicitaciones();
+						verificarEstadoDeJuego();
 					}
 				}
 				if(evento.getKeyChar()=='w') {
-					logica.moverPieza(logica.obtenerPosicionXdelCero()+1, logica.obtenerPosicionYdelCero());
-					vista.nuevaMatriz(logica.getMatriz());		
-					vista.ActualizarPanel();
-					vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+					moverArriba();
 					if(logica.estaResuelto()) {
-						logica.RegistrarRecords();
-						vista.ActualizarRecord("Record:"+logica.MostrarRecord());
-						vista.Felicitaciones();
+						verificarEstadoDeJuego();
 					}
 				}
 				if(evento.getKeyChar()=='s') {
-					logica.moverPieza(logica.obtenerPosicionXdelCero()-1, logica.obtenerPosicionYdelCero());
-					vista.nuevaMatriz(logica.getMatriz());		
-					vista.ActualizarPanel();
-					vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+					moverAbajo();
 					if(logica.estaResuelto()) {
-						logica.RegistrarRecords();
-						vista.ActualizarRecord("Record:"+logica.MostrarRecord());
-						vista.Felicitaciones();
+						verificarEstadoDeJuego();
 					}
 				}
 
@@ -255,5 +209,48 @@ public class Controlador {
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 		}
+	}
+	
+	private void cargarNivelSeleccionado() {
+		logica.SetearTamaño(logica.ObtenerNumeroCuadricula());
+		vista.limpiarCuadricula();
+		vista.CrearCuadricula(logica.getMatriz());
+		vista.ActualizarCantidadMovimiento("Movimientos:  ");
+		logica.GuardarRecordActual(vista.MostrarRecordActual());
+		vista.ActualizarPanel();
+	}
+	
+	private void moverArriba() {
+		logica.moverPieza(logica.obtenerPosicionXdelCero()+1, logica.obtenerPosicionYdelCero());
+		vista.nuevaMatriz(logica.getMatriz());		
+		vista.ActualizarPanel();
+		vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+	}
+	
+	private void moverAbajo() {
+		logica.moverPieza(logica.obtenerPosicionXdelCero()-1, logica.obtenerPosicionYdelCero());
+		vista.nuevaMatriz(logica.getMatriz());		
+		vista.ActualizarPanel();
+		vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+	}
+	
+	private void moverDerecha() {
+		logica.moverPieza(logica.obtenerPosicionXdelCero(), logica.obtenerPosicionYdelCero()-1);
+		vista.nuevaMatriz(logica.getMatriz());		
+		vista.ActualizarPanel();
+		vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+	}
+	
+	private void moverIzquierda() {
+		logica.moverPieza(logica.obtenerPosicionXdelCero(), logica.obtenerPosicionYdelCero()+1);
+		vista.nuevaMatriz(logica.getMatriz());		
+		vista.ActualizarPanel();
+		vista.ActualizarCantidadMovimiento("Movimientos:"+logica.cantidadMovimiento());
+	}
+	
+	private void verificarEstadoDeJuego() {
+		logica.RegistrarRecords();
+		vista.ActualizarRecord("Record:"+logica.MostrarRecord());
+		vista.Felicitaciones();
 	}
 }
