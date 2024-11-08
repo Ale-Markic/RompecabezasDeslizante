@@ -1,7 +1,5 @@
 package vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -12,10 +10,8 @@ import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
@@ -24,33 +20,25 @@ import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.border.LineBorder;
 
-import org.junit.validator.PublicClassValidator;
-
 
 public class VistaRompecabeza {
 
 	private JFrame frame;
 
-	//Inicio del juego
 	private JComboBox comboBox;
 	private String seleccion;
 
 	private JLabel txtMovimiento;
 	private JLabel textRecord;
-	// Panel del juego
 
 	public JPanel PanelJuego;
 
-	//Control movimientos
 	private JButton btnArriba;
 	private JButton btnAbajo;
 	private JButton btnIzquierda;
 	private JButton btnDerecha;
-
-	//Control juego 
 	private JButton btnReset;
 	private JButton btnComenzar;
-
 	public JButton [][] matrizJuego;
 	
 	/**
@@ -65,32 +53,21 @@ public class VistaRompecabeza {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
-		frame.getContentPane().setEnabled(false);
-		frame.setBounds(100, 100, 1008, 616);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setLocationRelativeTo(null);
-		frame.setUndecorated(true);
-		frame.setBackground(new Color(1.0f,1.0f,1.0f,0.5f));
+		inicializarFrame();
+
 
 		PanelesModificados panel = new PanelesModificados(10, 10, 0, 0);
-		panel.setBackground(new Color(96, 23, 188));
-		panel.setBounds(0, 0, 1008, 39);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		inicializarPanel(panel);
+
 
 		JLabel NombreJuego = new JLabel("Juego RompeCabeza");
-		NombreJuego.setFont(new Font("Arial", Font.BOLD, 17));
-		NombreJuego.setForeground(Color.WHITE);
-		NombreJuego.setBounds(10, 0, 237, 39);
-		panel.add(NombreJuego);
+		inicializarNombreDelJuego(NombreJuego, panel);
+
 
 		BotonesModificados BotonCerrar = new BotonesModificados(10,10,10,10);
-		BotonCerrar.setBackground(new Color(249, 98, 93));
-
-		BotonCerrar.setBounds(959, 10, 25, 23);		
-
+		inicializarBotonCerrar(BotonCerrar);
 		BotonCerrar.addActionListener(new ActionListener() {
 
 			@Override
@@ -103,9 +80,7 @@ public class VistaRompecabeza {
 		panel.add(BotonCerrar);
 
 		BotonesModificados btnMinimizar = new BotonesModificados(10,10,10,10);
-		btnMinimizar.setBackground(new Color(32, 205, 58));
-		btnMinimizar.setBounds(924, 11, 25, 22);
-
+		inicializarBotonMinimizar(btnMinimizar);
 		btnMinimizar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evento) {
@@ -117,26 +92,19 @@ public class VistaRompecabeza {
 		panel.add(btnMinimizar);
 
 		PanelJuego = new JPanel();
-		PanelJuego.setBackground(new Color(166, 166, 166));
-		PanelJuego.setBounds(341, 98, 643, 470);
-
-		frame.getContentPane().add(PanelJuego);
+		inicializarPanelJuego();
 
 		txtMovimiento = new JLabel("Movimientos:  ");
-		txtMovimiento.setBounds(554, 62, 103, 29);
-		frame.getContentPane().add(txtMovimiento);
-
-		JTextArea txtrEsteTexto = new JTextArea();
-		txtrEsteTexto.setFont(new Font("Arial", Font.PLAIN, 17));
-		txtrEsteTexto.setText("El objetivo de este juego es ordenar\r\nlos números en secuencia.\r\n\r\nUtilizar las flechas del teclado, los\r\nbotones (<--;-->) o el mause para\r\nmover las casilla vacía.");
-		txtrEsteTexto.setBounds(22, 239, 291, 176);
-		frame.getContentPane().add(txtrEsteTexto);
+		inicializarTextoMovimientos();
+		
+		JTextArea txtEsteTexto = new JTextArea();
+		inicializarTextoExplicativo(txtEsteTexto);
+	
 
 
 		String [] lista = {"Seleccione un nivel", "3x3", "4x4", "5x5"};
 		comboBox = new JComboBox(lista);
-
-		comboBox.setBounds(36, 115, 240, 39);
+		inicializarComboBox();
 
 		comboBox.addActionListener(new ActionListener() {
 
@@ -149,54 +117,18 @@ public class VistaRompecabeza {
 		});
 
 		frame.getContentPane().add(comboBox);
-
-		btnComenzar = new JButton("Start");
-		btnComenzar.setVerticalAlignment(SwingConstants.TOP);
-
-		btnComenzar.setBounds(36, 173, 89, 23);
-		frame.getContentPane().add(btnComenzar);
-
-		btnReset = new JButton("Reset");
-		btnReset.setBounds(143, 173, 89, 23);
-		frame.getContentPane().add(btnReset);
-
-		ImageIcon btn2 = new ImageIcon(VistaRompecabeza.class.getResource("/archivosImg/Arriba.png"));	
-		ImageIcon btnIzq = new ImageIcon(VistaRompecabeza.class.getResource("/archivosImg/Izquierda.png"));
-		ImageIcon btnDer = new ImageIcon(VistaRompecabeza.class.getResource("/archivosImg/Derecha.png"));
-		ImageIcon btnAbj = new ImageIcon(VistaRompecabeza.class.getResource("/archivosImg/Abajo.png"));
-
+		
+		inicializarBtnComenzar();
+		inicializarBtnReset();
 		JPanel panelFondo = new JPanel();
-		panelFondo.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelFondo.setBackground(Color.WHITE);
-		panelFondo.setBounds(0, 38, 1008, 578);
-		frame.getContentPane().add(panelFondo);
-		panelFondo.setLayout(null);
+		inicializarPanelFondo(panelFondo);
+		inicializarRecord(panelFondo);
 
+		inicializarBotonArriba(panelFondo);
+		inicializarBotonDerecha(panelFondo);
+		inicializarBotonIzquierda(panelFondo);
+		inicializarBotonAbajo(panelFondo);
 
-		btnArriba = new JButton("");	
-		btnArriba.setBounds(116, 384, 61, 47);
-		panelFondo.add(btnArriba);
-		btnArriba.setIcon(new ImageIcon(btn2.getImage().getScaledInstance(btnArriba.getWidth(), btnArriba.getHeight(), Image.SCALE_SMOOTH)));
-
-
-		btnDerecha = new JButton("");
-		btnDerecha.setBounds(175, 432, 61, 47);
-		btnDerecha.setIcon(new ImageIcon(btnDer.getImage().getScaledInstance(btnDerecha.getWidth(), btnDerecha.getHeight(), Image.SCALE_SMOOTH)));
-		panelFondo.add(btnDerecha);
-
-		btnIzquierda = new JButton("");
-		btnIzquierda.setBounds(55, 432, 61, 47);
-		panelFondo.add(btnIzquierda);
-		btnIzquierda.setIcon(new ImageIcon(btnIzq.getImage().getScaledInstance(btnIzquierda.getWidth(), btnIzquierda.getHeight(), Image.SCALE_SMOOTH)));
-
-		btnAbajo = new JButton("");
-		btnAbajo.setBounds(116, 477, 61, 47);
-		btnAbajo.setIcon(new ImageIcon(btnAbj.getImage().getScaledInstance(btnAbajo.getWidth(), btnAbajo.getHeight(), Image.SCALE_SMOOTH)));
-		panelFondo.add(btnAbajo);
-
-		textRecord = new JLabel("Record:  ");
-		textRecord.setBounds(694, 27, 61, 24);
-		panelFondo.add(textRecord);
 	}
 	
 	public void botonArriba(ActionListener accion) {
@@ -326,5 +258,127 @@ public class VistaRompecabeza {
 				}
 			}
 		}
+	}
+	
+	private void inicializarPanel(PanelesModificados panel) {
+		panel.setBackground(new Color(96, 23, 188));
+		panel.setBounds(0, 0, 1008, 39);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+	}
+	
+	private void inicializarNombreDelJuego(JLabel NombreJuego, PanelesModificados panel) {
+		NombreJuego.setFont(new Font("Arial", Font.BOLD, 17));
+		NombreJuego.setForeground(Color.WHITE);
+		NombreJuego.setBounds(10, 0, 237, 39);
+		panel.add(NombreJuego);
+	}
+	
+	private void inicializarBotonCerrar(BotonesModificados BotonCerrar ) {
+		BotonCerrar.setBackground(new Color(249, 98, 93));
+		BotonCerrar.setBounds(959, 10, 25, 23);	
+	}
+	
+	private void inicializarBotonMinimizar(BotonesModificados btnMinimizar) {
+		btnMinimizar.setBackground(new Color(32, 205, 58));
+		btnMinimizar.setBounds(924, 11, 25, 22);
+	}
+	
+	private void inicializarPanelJuego() {
+		PanelJuego.setBackground(new Color(166, 166, 166));
+		PanelJuego.setBounds(341, 98, 643, 470);
+		frame.getContentPane().add(PanelJuego);
+	}
+	
+	private void inicializarTextoMovimientos() {
+		txtMovimiento.setBounds(554, 62, 103, 29);
+		frame.getContentPane().add(txtMovimiento);
+	}
+	
+	private void inicializarTextoExplicativo(JTextArea txtEsteTexto) {
+		txtEsteTexto.setFont(new Font("Arial", Font.PLAIN, 17));
+		txtEsteTexto.setText("El objetivo de este juego es ordenar\r\nlos números en secuencia.\r\n\r\nUtilizar las flechas del teclado, los\r\nbotones (<--;-->) o el mause para\r\nmover las casilla vacía.");
+		txtEsteTexto.setBounds(22, 239, 291, 176);
+		frame.getContentPane().add(txtEsteTexto);
+	}
+	
+	private void inicializarComboBox() {
+		comboBox.setBounds(36, 115, 240, 39);
+	}
+	
+	private void inicializarBtnComenzar() {
+		btnComenzar = new JButton("Start");
+		btnComenzar.setVerticalAlignment(SwingConstants.TOP);
+
+		btnComenzar.setBounds(36, 173, 89, 23);
+		frame.getContentPane().add(btnComenzar);
+	}
+	
+	private void inicializarBtnReset() {
+		btnReset = new JButton("Reset");
+		btnReset.setBounds(143, 173, 89, 23);
+		frame.getContentPane().add(btnReset);
+	}
+	
+	private void inicializarRecord(JPanel panelFondo) {
+		textRecord = new JLabel("Record:  ");
+		textRecord.setBounds(694, 27, 61, 24);
+		panelFondo.add(textRecord);
+	}
+	
+	private void inicializarPanelFondo(JPanel panelFondo) {
+		panelFondo.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelFondo.setBackground(Color.WHITE);
+		panelFondo.setBounds(0, 38, 1008, 578);
+		frame.getContentPane().add(panelFondo);
+		panelFondo.setLayout(null);
+	}
+	
+	private void inicializarBotonArriba(JPanel panelFondo) {
+		ImageIcon btn2 = new ImageIcon(VistaRompecabeza.class.getResource("/archivosImg/Arriba.png"));	
+		
+		btnArriba = new JButton("");	
+		btnArriba.setBounds(116, 384, 61, 47);
+		panelFondo.add(btnArriba);
+		btnArriba.setIcon(new ImageIcon(btn2.getImage().getScaledInstance(btnArriba.getWidth(), btnArriba.getHeight(), Image.SCALE_SMOOTH)));
+	}
+	
+	private void inicializarBotonDerecha(JPanel panelFondo) {
+		ImageIcon btnDer = new ImageIcon(VistaRompecabeza.class.getResource("/archivosImg/Derecha.png"));
+		
+		btnDerecha = new JButton("");
+		btnDerecha.setBounds(175, 432, 61, 47);
+		btnDerecha.setIcon(new ImageIcon(btnDer.getImage().getScaledInstance(btnDerecha.getWidth(), btnDerecha.getHeight(), Image.SCALE_SMOOTH)));
+		panelFondo.add(btnDerecha);
+	}
+	
+	private void inicializarBotonIzquierda(JPanel panelFondo) {
+		ImageIcon btnIzq = new ImageIcon(VistaRompecabeza.class.getResource("/archivosImg/Izquierda.png"));
+		
+		btnIzquierda = new JButton("");
+		btnIzquierda.setBounds(55, 432, 61, 47);
+		panelFondo.add(btnIzquierda);
+		btnIzquierda.setIcon(new ImageIcon(btnIzq.getImage().getScaledInstance(btnIzquierda.getWidth(), btnIzquierda.getHeight(), Image.SCALE_SMOOTH)));
+
+	}
+	
+	private void inicializarBotonAbajo(JPanel panelFondo) {
+		ImageIcon btnAbj = new ImageIcon(VistaRompecabeza.class.getResource("/archivosImg/Abajo.png"));
+		
+		btnAbajo = new JButton("");
+		btnAbajo.setBounds(116, 477, 61, 47);
+		btnAbajo.setIcon(new ImageIcon(btnAbj.getImage().getScaledInstance(btnAbajo.getWidth(), btnAbajo.getHeight(), Image.SCALE_SMOOTH)));
+		panelFondo.add(btnAbajo);
+
+	}
+	
+	private void inicializarFrame() {
+		frame.getContentPane().setEnabled(false);
+		frame.setBounds(100, 100, 1008, 616);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
+		frame.setUndecorated(true);
+		frame.setBackground(new Color(1.0f,1.0f,1.0f,0.5f));
 	}
 }
