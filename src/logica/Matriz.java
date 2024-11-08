@@ -98,10 +98,10 @@ public class Matriz {
 	
 	private static int [][] obtenerPosiblesDirecciones(){
 		int [][] direcciones = {
-				{-1, 0},	// Arriba
-				{1, 0},		// Abajo
-				{0, -1},	//Izquierda
-				{0, 1}		//Derecha
+				{-1, 0},	
+				{1, 0},		
+				{0, -1},
+				{0, 1}		
 		};
 		
 		return direcciones;
@@ -231,8 +231,8 @@ public class Matriz {
 	}
 	
 	private static int [][] cambioDePosicionDelCero(int[][] matriz, int[] espacioVacio, int fila, int columna){
-		matriz[espacioVacio[0]][espacioVacio[1]] = matriz[fila][columna];// se hace el cambio del espacio vacio
-		matriz[fila][columna] = 0; // se pone en 0 el lugar que previamente ocupaba el numero
+		matriz[espacioVacio[0]][espacioVacio[1]] = matriz[fila][columna];
+		matriz[fila][columna] = 0; 
 		
 		return matriz;
 	}

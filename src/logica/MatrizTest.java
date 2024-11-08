@@ -5,67 +5,6 @@ import org.junit.Test;
 
 public class MatrizTest {
 	
-	
-	/*
-	@Test
-	public void generacionDeListaEsCorrecta() {
-		ArrayList <Integer> lista = new ArrayList<Integer>();
-		lista.add(1);
-		lista.add(2);
-		lista.add(3);
-		lista.add(4);
-		lista.add(5);
-		lista.add(6);
-		lista.add(7);
-		lista.add(8);
-		lista.add(9);
-		lista.add(10);
-		lista.add(11);
-		lista.add(12);
-		lista.add(13);
-		lista.add(14);
-		lista.add(15);
-		lista.add(null);
-		assertEquals(lista, Matriz.crearMatriz(4));
-	}
-	
-	@Test
-	public void generacionDeListaEsIncorrecta() {
-		ArrayList <Integer> lista = new ArrayList<Integer>();
-		lista.add(1);
-		lista.add(2);
-		lista.add(3);
-		lista.add(4);
-		lista.add(5);
-		lista.add(6);
-		lista.add(7);
-		lista.add(8);
-		lista.add(9);
-		lista.add(10);
-		lista.add(11);
-		lista.add(12);
-		lista.add(13);
-		lista.add(14);
-		lista.add(15);
-		lista.add(null);
-		assertNotEquals(lista, Matriz.crearMatriz(5));
-	}
-	*/
-	
-	/*
-	@Test
-	public void armadoDeMatrizEsCorrecto() {
-		int [][] matriz = {
-				{1,2,3,4,5},
-				{6,7,8,9,10},
-				{11,12,13,14,15},
-				{16,17,18,19,20},
-				{21,22,23,24,0}
-		};
-		assertArrayEquals(matriz, Matriz.crearMatriz(5));
-	}
-	*/
-	
 	@Test
 	public void matrizEstaNoEstaOrdenadaDevuelveFalse() {
 		int [][] matriz = {
@@ -95,7 +34,6 @@ public class MatrizTest {
 	
 	@Test
 	public void elJugadorGanoDevuelveFalse() {
-		//Matriz sin ordenar
 		int [][] matriz = {
 				{1, 2, 3},
 				{4, 7, 6},
@@ -117,7 +55,7 @@ public class MatrizTest {
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
-	public void movimientoDevuelveError() { //se pone en verde si se arroja el error.
+	public void movimientoDevuelveError() { 
 		int [][] matriz = {
 				{1, 2, 3},
 				{4, 5, 6},
@@ -125,48 +63,4 @@ public class MatrizTest {
 		};
 		Matriz.mover(matriz, 2,2);
 	}
-	
-	
-	/*
-	
-	@Test
-	public void movimientoEsCorrecto() {
-		int [][] matrizInicial = {
-				{1, 2, 3},
-				{4, 5, 6},
-				{7, 8, 0}
-		};
-		
-		int [][] matrizEsperada = {
-				{1, 2, 3},
-				{4, 5, 0},
-				{7, 8, 6}
-		};
-		
-		//assertArrayEquals(matrizEsperada, Matriz.mover(matrizInicial, 1,2));
-	}
-	
-	
-	
-	@Test
-	public void desordenarMatrizEsCorrecto() {
-		int [][] matrizInicial = {
-				{1, 2, 3},
-				{4, 5, 6},
-				{7, 8, 0}
-		};
-		
-		int [][] matrizFinal = {
-				{1, 2, 3},
-				{4, 5, 6},
-				{7, 8, 0}
-		};
-		
-		Matriz.desordenarLaMatriz(matrizFinal, 26);
-		System.out.println("matriz final: ");
-		Matriz.mostrarMatriz(matrizFinal);
-	}
-	*/
-	
-
 }

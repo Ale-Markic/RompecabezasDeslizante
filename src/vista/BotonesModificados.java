@@ -6,7 +6,6 @@ import java.awt.geom.Path2D;
 
 public class BotonesModificados extends JButton {
 
-	// Radios para las esquinas (superior izquierda, superior derecha, inferior derecha, inferior izquierda)
 	private int topLeftRadius;
 	private int topRightRadius;
 	private int bottomRightRadius;
@@ -40,7 +39,6 @@ public class BotonesModificados extends JButton {
 		path.quadTo(0, getHeight(), 0, getHeight() - bottomLeftRadius);
 		path.lineTo(0, topLeftRadius);
 		path.quadTo(0, 0, topLeftRadius, 0);
-
 
 		g2.fill(path);
 	}
